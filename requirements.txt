@@ -1,0 +1,9 @@
+numpy_financial
+pandas
+openpyxl
+numpy
+alpha_vantage
+yfinance
+matplotlib
+workdays
+xlwings
