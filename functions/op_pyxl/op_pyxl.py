@@ -1,6 +1,7 @@
 import pandas as pd
 import openpyxl
 from openpyxl.worksheet.cell_range import CellRange
+from openpyxl.utils.dataframe import dataframe_to_rows
 
 class op_pyxl:
     def __init__(self, path):
@@ -35,7 +36,19 @@ class op_pyxl:
         address = rngdata[1].replace('$', '')  # address
         return self.wb[sheet][address]
 
-    def update_rng_val(self, rngname, newval):
+    def update_rng_val(self, xlitem, newval):
+        # turn the master wb into write-mode, then turn it back to read-mode for other functions.
+        self.wb = self.writewb
+        if isinstance(newval,pd.DataFrame):
+            for r in dataframe_to_rows(newval, index=True, header=True):
+                self.wb[xlitem].append(r)
+        else:
+            self.rng(xlitem).value = newval
+        self.writewb.save(self.path)
+        self.wb = self.readwb
+
+    # back-up code
+    def update_rng_val_old(self, rngname, newval):
         # turn the master wb into write-mode, then turn it back to read-mode for other functions.
         self.wb = self.writewb
         self.rng(rngname).value = newval

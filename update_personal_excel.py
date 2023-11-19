@@ -16,7 +16,7 @@ def updatemktdata():
     EURCAD = yf.lastclose("EURCAD=X")
     HKDCAD = yf.lastclose("HKDCAD=X")
     GLEPA = yf.lastclose("GLE.PA")
-
+    # GLEPA = 23.72
     mywb.update_rng_val("USDCAD",USDCAD)
     mywb.update_rng_val("SGDCAD",SGDCAD)
     mywb.update_rng_val("MMKCAD",MMKCAD)
