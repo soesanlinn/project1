@@ -55,7 +55,7 @@ class op_pyxl:
         self.writewb.save(self.path)
         self.wb = self.readwb
 
-    # in list myrng, find the lookup val in lookup rng and return a corressponding value in the result column.
+    # in list myrng, find the lookup val in lookup rng and return a corresponding value in the result column.
     def vlookup(self, myrng, lookup_rng, lookup_val, result_rng):
         i = 0
         for header in myrng.iloc[i]:

@@ -48,35 +48,20 @@ return_rank = ((df_wt_avg + df['Dividend Yield'] - df['Expense Ratio']) * wt_avg
 df.insert(loc=0,column='return_rank',value=return_rank)
 df = df.sort_values(by=['CATEGORY','SUB-CATEGORY','return_rank'],ascending=[True,True,False])\
     [['return_rank','CATEGORY','SUB-CATEGORY','Ticker','Fund Name','5Y','10Y','wt_avg','Dividend Yield','Expense Ratio']]
-# #left join like in access db - very useful
+#left join like in access db - very useful
 df_result = df.groupby('SUB-CATEGORY',as_index=False).max('return_rank')[['SUB-CATEGORY','return_rank']]
 df_result = df_result.merge(df[['Ticker','CATEGORY','SUB-CATEGORY','return_rank']], how='left', on=['SUB-CATEGORY','return_rank'])
-print(df_result)
-print(df)
-# mywb = xl(source_xl)
-# mywb.update_rng_val('DATA',df)
-# -------
-# wb = openpyxl.load_workbook(filename=source_xl, read_only=False, data_only=False,
-#                                          keep_vba=True, keep_links=True)
-# -------
-# for index, row in df_basket.iterrows():
-# mywb = xl(source_xl)
-# mywb.update_rng_val('tbl_basket',1)
-    # wb.active.tables['tbl_basket']['ETF'] = df[df['SUB-CATEGORY']==row['SUB-CATEGORY']]['Ticker']
-
-# -------
-# wb.remove(wb['DATA'])
+# print(df_result)
+# df.set_index('Ticker',inplace=True)
+# df = df.style.hide_index()
+print(df.iloc[0:3])
+# # remove previous data.
+# wb =  openpyxl.load_workbook(filename=source_xl,read_only=False, data_only=False,
+#                             keep_vba=True, keep_links=True)
+# sheet = wb['RESULT']
+# sheet.delete_rows(1, sheet.max_row)
 # wb.save(source_xl)
-# need to write the similar function in op_pyxl
-# with pd.ExcelWriter(source_xl, mode='a') as writer:
-#     df.to_excel(writer, sheet_name='DATA',index=False)
-# -------
-
-
-
-
-#to mass-comment, select all lines to comment>Command+/, new field to add under df = df.assign(new_field_name = )
-#to-dos
-#compile all data from different tabs and attach category and sub-category fields
-#create a sub-category weight dictionary
-#final result fields = CATEGORY,SUB-CATEGORY,TICKER,Name,weight,df_return,Dividend Yield,Expense Ratio,#shs,USD,Suggested Move USD,Expected Return,Current Return
+#
+# # update 'DATA' tab.
+# mywb = xl(source_xl)
+# mywb.update_rng_val('RESULT',df)

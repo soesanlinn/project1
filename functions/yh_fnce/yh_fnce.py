@@ -24,7 +24,7 @@ class yh_fnce:
         return yf.download(ticker,
                       start=workdays.workday(today,-1),
                       end=today,
-                      progress=False)["Close"][-1]
+                      progress=False)["Close"].iloc[-1].iloc[-1]
     #get data on this ticker
     def tickerData(ticker):
         return yf.Ticker(ticker)

@@ -35,12 +35,19 @@ katagana =  ['ア','イ','ウ','エ','オ',
 used_char = []
 def practice(char_list):
     char_count = len(char_list)
+    jpcharlist = tuple(char_list)
+    index_chosen_char = -1
     while len(used_char) != char_count:
         input('\nPress Enter to generate a character.')
+        if index_chosen_char != -1:
+            print('Previous answers for ' + chosen_char + ' are "' + hiragana[index_chosen_char] + ' ' + katagana[index_chosen_char] + '".')
         chosen_char = random.choice(char_list)
+        index_chosen_char = jpcharlist.index(chosen_char)
         used_char.append(chosen_char)
         char_list.remove(chosen_char)
         print('New character: ' + chosen_char + '. The practiced character list: ')
         print(*used_char, sep= ', ')
+    input('\nPress Enter reveal the final answers.')
+    print('Previous answers for ' + chosen_char + ' are "' + hiragana[index_chosen_char] + ' ' + katagana[index_chosen_char] + '".')
     print('Congrats! you have finished the exercise.')
-practice(hiragana)
+practice(jp_char)
