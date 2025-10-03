@@ -98,21 +98,7 @@ import string
 #
 # hangman()
 # from functions.yh_fnce.yh_fnce import yh_fnce as yf
-import yfinance as yf
-from datetime import date
-import workdays
+from etfpy import ETF, load_etf, get_available_etfs_list
 
-today = date.today()
-# 1. determine the last business day.
-
-price = yf.download('CAD=X',
-                   start=workdays.workday(today, -1),
-                   end=today,
-                   progress=False)["Close"].iloc[-1].iloc[-1]
-# stock = yf.Ticker('AAPL')
-
-# msft = yf.Ticker("MSFT")
-# msft.get_history_metadata()
-# print(yf.Ticker('AAPL').info)
-# print(yf.__version__)
-print(price)
+spy = ETF('SPY')
+print(spy.info)

@@ -6,9 +6,11 @@ import workdays
 import yfinance as yf
 
 class yh_fnce:
+    def lastclose(ticker):
+        return yf.Ticker(ticker).history(period="max").tail(1)['Close'].iloc[0]
 
     #Steven's codes
-    def lastclose(ticker):
+    def old_lastclose(ticker):
         today = date.today()
         #1. determine the last business day.
         '''
@@ -25,6 +27,7 @@ class yh_fnce:
                       start=workdays.workday(today,-1),
                       end=today,
                       progress=False)["Close"].iloc[-1].iloc[-1]
+        '''
     #get data on this ticker
     def tickerData(ticker):
         return yf.Ticker(ticker)
@@ -33,7 +36,7 @@ class yh_fnce:
     def tickerHP(self):
         return self.tickerData().history(period='1d', start= self.startdate, end= self.enddate)
 
-'''
+
     #info on the company
     tickerData.info
 
@@ -65,8 +68,3 @@ class yh_fnce:
     tsla_df = tsla_df.drop('date', axis=1).set_index('formatted_date')
     print(tsla_df.head())
 '''
-
-
-
-
-
