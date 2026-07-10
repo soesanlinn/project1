@@ -7,7 +7,8 @@ import yfinance as yf
 
 class yh_fnce:
     def lastclose(ticker):
-        return yf.Ticker(ticker).history(period="max").tail(1)['Close'].iloc[0]
+        # return yf.Ticker(ticker).history(period="max").tail(1)['Close'].iloc[0] # it works well for currencies but shows blank for stock: e.g. GLE.PA
+        return yf.Ticker(ticker).history(period="max")['Close'].dropna()[-1:].iloc[0]
 
     #Steven's codes
     def old_lastclose(ticker):
